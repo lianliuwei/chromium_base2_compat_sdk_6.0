@@ -10,6 +10,8 @@
 
 namespace {
 
+typedef __nullnullterminated WCHAR *PZZWSTR;
+
 // Keep this enum in sync with kLanguageFunctionNames.
 enum LanguageFunction {
   SYSTEM_LANGUAGES,
