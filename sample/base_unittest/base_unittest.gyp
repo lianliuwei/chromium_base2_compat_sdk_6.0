@@ -9,6 +9,7 @@
       'type': '<(gtest_target_type)',
       'sources': [
         # Tests.
+        '../../base/android/activity_status_unittest.cc',
         '../../base/android/jni_android_unittest.cc',
         '../../base/android/jni_array_unittest.cc',
         '../../base/android/jni_string_unittest.cc',
@@ -37,6 +38,7 @@
         '../../base/debug/trace_event_unittest.cc',
         '../../base/debug/trace_event_unittest.h',
         '../../base/debug/trace_event_win_unittest.cc',
+        '../../base/deferred_sequenced_task_runner_unittest.cc',
         '../../base/environment_unittest.cc',
         '../../base/file_util_unittest.cc',
         '../../base/file_version_info_unittest.cc',
@@ -109,6 +111,7 @@
         '../../base/platform_file_unittest.cc',
         '../../base/posix/file_descriptor_shuffle_unittest.cc',
         '../../base/posix/unix_domain_socket_linux_unittest.cc',
+        '../../base/power_monitor/power_monitor_unittest.cc',
         '../../base/pr_time_unittest.cc',
         '../../base/prefs/default_pref_store_unittest.cc',
         '../../base/prefs/json_pref_store_unittest.cc',
@@ -128,6 +131,7 @@
         '../../base/rand_util_unittest.cc',
         '../../base/safe_numerics_unittest.cc',
         '../../base/safe_numerics_unittest.nc',
+        '../../base/scoped_clear_errno_unittest.cc',
         '../../base/scoped_native_library_unittest.cc',
         '../../base/scoped_observer.h',
         '../../base/security_unittest.cc',
@@ -146,6 +150,7 @@
         '../../base/strings/sys_string_conversions_mac_unittest.mm',
         '../../base/strings/sys_string_conversions_unittest.cc',
         '../../base/strings/utf_offset_string_conversions_unittest.cc',
+        '../../base/strings/utf_string_conversions_unittest.cc',
         '../../base/synchronization/cancellation_flag_unittest.cc',
         '../../base/synchronization/condition_variable_unittest.cc',
         '../../base/synchronization/lock_unittest.cc',
@@ -177,7 +182,6 @@
         '../../base/tools_sanity_unittest.cc',
         '../../base/tracked_objects_unittest.cc',
         '../../base/tuple_unittest.cc',
-        '../../base/utf_string_conversions_unittest.cc',
         '../../base/values_unittest.cc',
         '../../base/version_unittest.cc',
         '../../base/vlog_unittest.cc',
@@ -238,7 +242,7 @@
             'debug/stack_trace_unittest.cc',
           ],
         }],
-        ['OS == "ios"', {
+        ['OS == "ios" and _toolset != "host"', {
           'sources/': [
             # Only test the iOS-meaningful portion of process_utils.
             ['exclude', '^process_util_unittest'],
@@ -254,7 +258,7 @@
                 # These sources can't be built with coverage due to a toolchain
                 # bug: http://openradar.appspot.com/radar?id=1499403
                 'json/json_reader_unittest.cc',
-                'string_piece_unittest.cc',
+                'strings/string_piece_unittest.cc',
 
                 # These tests crash when run with coverage turned on due to an
                 # issue with llvm_gcda_increment_indirect_counter:
@@ -273,9 +277,6 @@
               'action_name': 'copy_test_data',
               'variables': {
                 'test_data_files': [
-                  'data/file_util_unittest',
-                  'data/json/bom_feff.json',
-                  'prefs/test/data/pref_service',
                   'test/data',
                 ],
                 'test_data_prefix': 'base',
@@ -314,11 +315,16 @@
             '../../base/message_pump_glib_unittest.cc',
           ]
         }],
+        ['use_ozone == 1', {
+          'sources!': [
+            'message_pump_glib_unittest.cc',
+          ]
+        }],
         # This is needed to trigger the dll copy step on windows.
         # TODO(mark): This should not be necessary.
         ['OS == "win"', {
           'dependencies': [
-            '../../third_party/icu/icu.gyp:icudata',
+            '../../third_party/icu_bin.gyp:icudata_bin',
           ],
           'sources!': [
             '../../base/file_descriptor_shuffle_unittest.cc',
@@ -350,7 +356,7 @@
         }],
       ],  # conditions
       'target_conditions': [
-        ['OS == "ios"', {
+        ['OS == "ios" and _toolset != "host"', {
           'sources/': [
             # Pull in specific Mac files for iOS (which have been filtered out
             # by file name rules).

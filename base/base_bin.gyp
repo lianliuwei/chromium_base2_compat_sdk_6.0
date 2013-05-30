@@ -123,7 +123,7 @@
           ],
         },
       ],
-      'soucres': [
+      'sources': [
         'i18n/base_i18n_export.h',
         'i18n/bidi_line_iterator.cc',
         'i18n/bidi_line_iterator.h',
@@ -135,6 +135,8 @@
         'i18n/case_conversion.h',
         'i18n/file_util_icu.cc',
         'i18n/file_util_icu.h',
+        'i18n/i18n_constants.cc',
+        'i18n/i18n_constants.h',
         'i18n/icu_encoding_detection.cc',
         'i18n/icu_encoding_detection.h',
         'i18n/icu_string_conversions.cc',
@@ -145,6 +147,8 @@
         'i18n/number_formatting.h',
         'i18n/rtl.cc',
         'i18n/rtl.h',
+        'i18n/string_compare.cc',
+        'i18n/string_compare.h',
         'i18n/string_search.cc',
         'i18n/string_search.h',
         'i18n/time_formatting.cc',
@@ -259,6 +263,64 @@
       ],
     },
     {
+      'target_name': 'base_static_bin',
+      'type': 'none',
+      'dependencies': [
+      ],
+      'export_dependent_settings': [
+      ],      
+      'direct_dependent_settings': {
+        'msvs_settings':{
+          'VCLinkerTool': {
+            'AdditionalDependencies': [
+              'base_static.lib',
+            ],
+          },
+        },
+      },
+      'copies': [
+        {
+          'destination': '<(dest_lib_path)',
+          'files': [
+            '<(lib_path)\\base_static.lib',
+          ],
+        },
+      ],
+      'sources': [
+        'base_switches.cc',
+        'base_switches.h',
+        'win/pe_image.cc',
+        'win/pe_image.h',
+      ],
+    },
+    {
+      'target_name': 'run_all_unittests_bin',
+      'type': 'none',    
+      'dependencies': [
+        'test_support_base_bin',
+      ],      
+      'direct_dependent_settings': {
+        'msvs_settings':{
+          'VCLinkerTool': {
+            'AdditionalDependencies': [
+              'run_all_unittests.lib',
+            ],
+          },
+        },
+      },
+      'copies': [
+        {
+          'destination': '<(dest_lib_path)',
+          'files': [
+            '<(lib_path)\\run_all_unittests.lib'
+          ],
+        },
+      ],
+      'sources': [
+        'test/run_all_unittests.cc',
+      ],
+    },
+    {
       'target_name': 'test_support_base_bin',
       'type': 'none',    
       'dependencies': [
@@ -319,6 +381,7 @@
         'test/simple_test_tick_clock.h',
         'test/task_runner_test_template.cc',
         'test/task_runner_test_template.h',
+        'test/test_file_util.cc',
         'test/test_file_util.h',
         'test/test_file_util_linux.cc',
         'test/test_file_util_mac.cc',
@@ -389,64 +452,6 @@
       'sources': [
         'perftimer.cc',
         'test/run_all_perftests.cc',
-      ],
-    },
-    {
-      'target_name': 'base_static_bin',
-      'type': 'none',
-      'dependencies': [
-      ],
-      'export_dependent_settings': [
-      ],      
-      'direct_dependent_settings': {
-        'msvs_settings':{
-          'VCLinkerTool': {
-            'AdditionalDependencies': [
-              'base_static.lib',
-            ],
-          },
-        },
-      },
-      'copies': [
-        {
-          'destination': '<(dest_lib_path)',
-          'files': [
-            '<(lib_path)\\base_static.lib',
-          ],
-        },
-      ],
-      'sources': [
-        'base_switches.cc',
-        'base_switches.h',
-        'win/pe_image.cc',
-        'win/pe_image.h',
-      ],
-    },
-    {
-      'target_name': 'run_all_unittests_bin',
-      'type': 'none',    
-      'dependencies': [
-        'test_support_base_bin',
-      ],      
-      'direct_dependent_settings': {
-        'msvs_settings':{
-          'VCLinkerTool': {
-            'AdditionalDependencies': [
-              'run_all_unittests.lib',
-            ],
-          },
-        },
-      },
-      'copies': [
-        {
-          'destination': '<(dest_lib_path)',
-          'files': [
-            '<(lib_path)\\run_all_unittests.lib'
-          ],
-        },
-      ],
-      'sources': [
-        'test/run_all_unittests.cc',
       ],
     },
   ],
