@@ -51,6 +51,9 @@ using base::TimeDelta;
 using base::TimeTicks;
 
 namespace {
+int64 abs(int64 number) {
+    return( number>=0 ? number : -number );
+  }
 
 // From MSDN, FILETIME "Contains a 64-bit value representing the number of
 // 100-nanosecond intervals since January 1, 1601 (UTC)."

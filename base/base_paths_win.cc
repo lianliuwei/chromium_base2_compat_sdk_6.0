@@ -16,6 +16,13 @@ extern "C" IMAGE_DOS_HEADER __ImageBase;
 
 using base::FilePath;
 
+#undef DEFINE_GUID
+#define DEFINE_GUID(name, l, w1, w2, b1, b2, b3, b4, b5, b6, b7, b8) \
+  EXTERN_C const GUID DECLSPEC_SELECTANY name \
+  = { l, w1, w2, { b1, b2,  b3,  b4,  b5,  b6,  b7,  b8 } }
+// {A3918781-E5F2-4890-B3D9-A7E54332328C}
+DEFINE_GUID(FOLDERID_ApplicationShortcuts, 0xA3918781L, 0xE5F2, 0x4890,
+            0xB3, 0xD9, 0xA7, 0xE5, 0x43, 0x32, 0x32, 0x8C);
 namespace {
 
 bool GetQuickLaunchPath(bool default_user, FilePath* result) {

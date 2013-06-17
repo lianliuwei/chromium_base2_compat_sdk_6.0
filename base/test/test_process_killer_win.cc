@@ -14,6 +14,21 @@
 #include "base/string_util.h"
 #include "base/win/scoped_handle.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+  typedef struct _RTL_USER_PROCESS_PARAMETERS {
+  BYTE Reserved1[16];
+  PVOID Reserved2[10];
+  UNICODE_STRING ImagePathName;
+  UNICODE_STRING CommandLine;
+} RTL_USER_PROCESS_PARAMETERS, *PRTL_USER_PROCESS_PARAMETERS;
+
+#ifdef __cplusplus
+}
+#endif
+
 namespace {
 
 typedef LONG WINAPI

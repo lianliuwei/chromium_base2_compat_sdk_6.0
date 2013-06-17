@@ -11,6 +11,8 @@
 #include "base/metrics/sparse_histogram.h"
 #include "base/threading/thread_restrictions.h"
 
+#define ERROR_DISK_RESOURCES_EXHAUSTED 314L
+
 namespace base {
 PlatformFile CreatePlatformFileUnsafe(const FilePath& name,
                                       int flags,

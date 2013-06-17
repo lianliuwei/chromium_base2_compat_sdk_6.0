@@ -27,6 +27,21 @@
 #include "base/win/scoped_propvariant.h"
 #include "base/win/windows_version.h"
 
+/*
+ * GetSystemMetrics(SM_DIGITIZER) flag values
+ */
+#define NID_INTEGRATED_TOUCH  0x00000001
+#define NID_EXTERNAL_TOUCH    0x00000002
+#define NID_INTEGRATED_PEN    0x00000004
+#define NID_EXTERNAL_PEN      0x00000008
+#define NID_MULTI_INPUT       0x00000040
+#define NID_READY             0x00000080
+
+#define SM_DIGITIZER          94
+
+DEFINE_PROPERTYKEY(PKEY_AppUserModel_ID, 0x9F4C2855, 0x9F79, 
+                   0x4B39, 0xA8, 0xD0, 0xE1, 0xD4, 0x2D, 0xE1, 0xD5, 0xF3, 5);
+
 namespace {
 
 // Sets the value of |property_key| to |property_value| in |property_store|.

@@ -14,6 +14,12 @@
 #include "base/win/win_util.h"
 #include "base/win/windows_version.h"
 
+#undef DEFINE_PROPERTYKEY
+#define DEFINE_PROPERTYKEY(name, l, w1, w2, b1, b2, b3, b4, b5, b6, b7, b8, pid) EXTERN_C const PROPERTYKEY DECLSPEC_SELECTANY name = { { l, w1, w2, { b1, b2,  b3,  b4,  b5,  b6,  b7,  b8 } }, pid }
+
+DEFINE_PROPERTYKEY(PKEY_AppUserModel_IsDualMode, 0x9F4C2855, 0x9F79,
+                   0x4B39, 0xA8, 0xD0, 0xE1, 0xD4, 0x2D, 0xE1, 0xD5, 0xF3, 11);
+
 namespace base {
 namespace win {
 
@@ -38,7 +44,6 @@ void InitializeShortcutInterfaces(
     i_persist_file->Release();
   }
 }
-
 }  // namespace
 
 bool CreateOrUpdateShortcutLink(const FilePath& shortcut_path,

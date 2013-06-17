@@ -448,26 +448,26 @@ class hash_map_add_item_initializer {
 };
 
 }  // anonymous namespace
-
-TEST(SmallMap, SubclassInitializationWithFunctionPointer) {
-  SmallMap<hash_map_add_item, 4, std::equal_to<int>,
-      void (&)(ManualConstructor<hash_map_add_item>*)> m(InitMap);
-
-  EXPECT_TRUE(m.empty());
-
-  m[1] = 1;
-  m[2] = 2;
-  m[3] = 3;
-  m[4] = 4;
-
-  EXPECT_EQ(4u, m.size());
-  EXPECT_EQ(0u, m.count(0));
-
-  m[5] = 5;
-  EXPECT_EQ(6u, m.size());
-  // Our function adds an extra item when we convert to a map.
-  EXPECT_EQ(1u, m.count(0));
-}
+//
+//TEST(SmallMap, SubclassInitializationWithFunctionPointer) {
+//  SmallMap<hash_map_add_item, 4, std::equal_to<int>,
+//      void (&)(ManualConstructor<hash_map_add_item>*)> m(InitMap);
+//
+//  EXPECT_TRUE(m.empty());
+//
+//  m[1] = 1;
+//  m[2] = 2;
+//  m[3] = 3;
+//  m[4] = 4;
+//
+//  EXPECT_EQ(4u, m.size());
+//  EXPECT_EQ(0u, m.count(0));
+//
+//  m[5] = 5;
+//  EXPECT_EQ(6u, m.size());
+//  // Our function adds an extra item when we convert to a map.
+//  EXPECT_EQ(1u, m.count(0));
+//}
 
 TEST(SmallMap, SubclassInitializationWithFunctionObject) {
   SmallMap<hash_map_add_item, 4, std::equal_to<int>,
